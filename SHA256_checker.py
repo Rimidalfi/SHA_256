@@ -6,7 +6,6 @@ customtkinter.set_appearance_mode("System")  # Modes: system (default), light, d
 customtkinter.set_default_color_theme("dark-blue")  # Themes: blue (default), dark-blue, green
 
 app = customtkinter.CTk()
-app.iconbitmap("icons/app_icon.ico")
 app.geometry("700x260")
 app.title("SHA256 Checker")
 hash_1 = StringVar()
