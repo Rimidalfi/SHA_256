@@ -1,19 +1,14 @@
 from hashlib import sha256
-from tkinter import Tk, filedialog, Button, Entry, Label, StringVar
-from PIL import Image, ImageTk
+from tkinter import filedialog, StringVar
+import customtkinter
 
-root = Tk()
-root.title("SHA256 Checker")
-width=720
-height=220
-screenwidth = root.winfo_screenwidth()
-screenheight = root.winfo_screenheight()
-alignstr = '%dx%d+%d+%d' % (width, height, (screenwidth - width) / 2, (screenheight - height) / 2)
-root.geometry(alignstr)
-root.resizable(width=False, height=False)
-svgImage = Image.open("icons/button_light_grey.png")
-TkImage = ImageTk.PhotoImage(svgImage)
+customtkinter.set_appearance_mode("System")  # Modes: system (default), light, dark
+customtkinter.set_default_color_theme("dark-blue")  # Themes: blue (default), dark-blue, green
 
+app = customtkinter.CTk()
+app.iconbitmap("icons/app_icon.ico")
+app.geometry("700x260")
+app.title("SHA256 Checker")
 hash_1 = StringVar()
 hash_2 = StringVar()
 resultText = StringVar()
@@ -34,22 +29,20 @@ def checkSum():
     firstHash = hash_1.get()
     secondHash = hash_2.get()
     if firstHash == secondHash:
-        a = "The values do match!"
+        a = "The hashes do match!"
         msg.set(a)
         fontColor = "#649c4c"
         
     else:
-        msg.set("ATTENTION! The values do not match!!!")
+        msg.set("ATTENTION! The hashes do not match!!!")
         fontColor = "#f76565"
-    Label(root, text=msg.get(),font=("RobotoMono-Regular",12),fg=fontColor).place(x=0,y=200,width=720,height=30)
+    customtkinter.CTkLabel(master=app, text=msg.get(),font=("Liberation Mono Bold",16),width=700,height=30,text_color=fontColor).place(x=0,y=217)
 
-Label(root, text="paste hash here:",font=("RobotoMono",12)).place(x=10,y=3,width=700,height=30)
-Entry(root, textvariable=hash_2,justify ="center",font=("RobotoMono-Regular",12)).place(x=60,y=35,width=600,height=30)
-Button(root, text="open file", command=openFile,cursor="hand2",font=("RobotoMono-Regular",12)).place(x=310,y=68,width=100,height=30)
-Label(root, text="calculated hash from opend file",font=("RobotoMono-Regular",12)).place(x=0,y=101,width=720,height=30)
-Entry(root, textvariable=hash_1,justify="center",font=("RobotoMono-Regular",12)).place(x=60,y=134,width=600,height=30)
-Button(root, text="check Sum", command=checkSum,cursor="hand2",font=("RobotoMono-Regular",12)).place(x=310,y=167,width=100,height=30)
+customtkinter.CTkLabel(app, text="paste hash here:",font=("Liberation Mono",12),width=700,height=30).place(x=0,y=3)
+customtkinter.CTkEntry(app, textvariable=hash_2,justify ="center",font=("Liberation Mono",12),width=600,height=30,border_width=1).place(x=50,y=35)
+customtkinter.CTkButton(app, text="open file", command=openFile,cursor="hand2",font=("Liberation Mono",12),width=100,height=30).place(x=300,y=73)
+customtkinter.CTkLabel(app, text="calculated hash from opend file",font=("Liberation Mono",12),width=700,height=30).place(x=0,y=105)
+customtkinter.CTkEntry(app, textvariable=hash_1,justify="center",font=("Liberation Mono",12),width=600,height=30,border_width=1).place(x=50,y=139)
+customtkinter.CTkButton(app, text="check Sum", command=checkSum,cursor="hand2",font=("Liberation Mono",12),width=100,height=30).place(x=300,y=177)
 
-
-
-root.mainloop()
+app.mainloop()
